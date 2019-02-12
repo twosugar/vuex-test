@@ -83,15 +83,36 @@
         >
       </li>
     </ul>
+    <button @click="changeState">点击</button>
   </div>
 </template>
 
 <script>
+import store from '../store.js'
 export default {
   name: "HelloWorld",
   props: {
     msg: String
-  }
+  },
+  created() {
+    console.log('xxx初始化', this.$store.state)
+  },
+  computed: {
+    storeState() {
+      return this.$store.state.a
+    }
+  },
+  watch: {
+    storeState(newValue, oldValue) {
+      console.log('newValue, oldValue', newValue, oldValue)  
+    }
+  },
+  methods: {
+    changeState: () => {
+      console.log('111')
+      store.dispatch('increment', '00000')
+    }
+  },
 };
 </script>
 
